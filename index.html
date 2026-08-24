@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>پنل مدیریت | پیروان حضرت مهدی</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    font-family:Tahoma,Arial,sans-serif;
+    background:#080b16;
+    color:#fff;
+}
+
+.container{
+    width:min(1100px,92%);
+    margin:auto;
+}
+
+header{
+    background:#0d1222;
+    border-bottom:1px solid #29334e;
+    padding:18px 0;
+}
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.logo{
+    width:48px;
+    height:48px;
+    border-radius:15px;
+    background:linear-gradient(135deg,#7657ff,#a78bfa);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:23px;
+    font-weight:bold;
+}
+
+.brand h1{
+    margin:0;
+    font-size:20px;
+}
+
+.brand span{
+    color:#9da8c0;
+    font-size:12px;
+}
+
+main{
+    padding:35px 0 70px;
+}
+
+.hero h2{
+    margin:0 0 10px;
+    font-size:32px;
+}
+
+.muted{
+    color:#9da8c0;
+    line-height:1.9;
+}
+
+.card{
+    background:#11172a;
+    border:1px solid #29334e;
+    border-radius:20px;
+    padding:22px;
+    margin-bottom:18px;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.stat-number{
+    font-size:32px;
+    font-weight:bold;
+    margin-top:8px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+input,textarea,select{
+    width:100%;
+    padding:13px;
+    border-radius:12px;
+    border:1px solid #34405e;
+    background:#090e1c;
+    color:white;
+    margin:7px 0 15px;
+    outline:none;
+}
+
+textarea{
+    min-height:100px;
+    resize:vertical;
+}
+
+button{
+    border:0;
+    border-radius:12px;
+    padding:12px 18px;
+    color:white;
+    background:linear-gradient(135deg,#7657ff,#987eff);
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:hover{
+    opacity:.85;
+}
+
+.green{
+    background:linear-gradient(135deg,#0fa77d,#19d09d);
+}
+
+.red{
+    background:#e95773;
+}
+
+.item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    padding:14px;
+    background:#0b1121;
+    border:1px solid #29334e;
+    border-radius:13px;
+    margin-top:10px;
+}
+
+.login{
+    width:min(450px,92%);
+    margin:100px auto;
+}
+
+.login h2{
+    margin-top:20px;
+}
+
+.message{
+    min-height:25px;
+    margin-top:12px;
+    color:#ff9eb0;
+}
+
+#panel{
+    display:none;
+}
+
+@media(max-width:700px){
+    .stats,
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .header{
+        gap:10px;
+    }
+
+    .item{
+        flex-direction:column;
+        align-items:stretch;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- صفحه ورود -->
+
+<div id="loginPage" class="login card">
+
+    <div class="brand">
+
+        <div class="logo">
+            پ
+        </div>
+
+        <div>
+            <h1>پیروان حسرت مهدی</h1>
+            <span>پنل مدیریت</span>
+        </div>
+
+    </div>
+
+    <hr style="border-color:#29334e;margin:22px 0">
+
+    <h2>ورود مدیر</h2>
+
+    <p class="muted">
+        ورود به پنل مدیریت پیروان حسرت مهدی
+    </p>
+
+    <label>ایمیل</label>
+
+    <input
+        id="email"
+        type="email"
+        placeholder="ایمیل مدیر"
+    >
+
+    <label>رمز عبور</label>
+
+    <input
+        id="password"
+        type="password"
+        placeholder="رمز عبور"
+    >
+
+    <button id="loginButton">
+        ورود به پنل
+    </button>
+
+    <div id="loginMessage" class="message"></div>
+
+</div>
+
+
+<!-- پنل مدیریت -->
+
+<div id="panel">
+
+<header>
+
+<div class="container header">
+
+    <div class="brand">
+
+        <div class="logo">
+            پ
+        </div>
+
+        <div>
+            <h1>پیروان حسرت مهدی</h1>
+            <span>پنل مدیریت سایت</span>
+        </div>
+
+    </div>
+
+    <button id="logoutButton" class="red">
+        خروج
+    </button>
+
+</div>
+
+</header>
+
+
+<main class="container">
+
+<div class="hero">
+
+    <h2>
+        داشبورد مدیریت
+    </h2>
+
+    <p class="muted">
+        مدیریت آزمون‌ها، سؤال‌ها و نتایج کاربران
+    </p>
+
+</div>
+
+
+<!-- آمار -->
+
+<div class="stats">
+
+    <div class="card">
+        <div class="muted">
+            تعداد آزمون‌ها
+        </div>
+
+        <div id="examCount" class="stat-number">
+            ۰
+        </div>
+    </div>
+
+
+    <div class="card">
+        <div class="muted">
+            تعداد سؤال‌ها
+        </div>
+
+        <div id="questionCount" class="stat-number">
+            ۰
+        </div>
+    </div>
+
+
+    <div class="card">
+        <div class="muted">
+            تعداد نتایج
+        </div>
+
+        <div id="resultCount" class="stat-number">
+            ۰
+        </div>
+    </div>
+
+</div>
+
+
+<!-- مدیریت آزمون -->
+
+<div class="card">
+
+<h2>
+مدیریت آزمون‌ها
+</h2>
+
+<div class="grid">
+
+<div>
+
+<label>
+عنوان آزمون
+</label>
+
+<input
+id="examTitle"
+placeholder="عنوان آزمون"
+>
+
+</div>
+
+
+<div>
+
+<label>
+توضیحات
+</label>
+
+<input
+id="examDescription"
+placeholder="توضیحات آزمون"
+>
+
+</div>
+
+</div>
+
+
+<button
+id="addExamButton"
+class="green"
+>
++ افزودن آزمون
+</button>
+
+
+<div id="examList"></div>
+
+</div>
+
+
+<!-- مدیریت سؤال -->
+
+<div class="card">
+
+<h2>
+مدیریت سؤال‌ها
+</h2>
+
+
+<label>
+انتخاب آزمون
+</label>
+
+<select id="examSelect">
+<option>
+ابتدا یک آزمون بسازید
+</option>
+</select>
+
+
+<label>
+متن سؤال
+</label>
+
+<textarea
+id="questionText"
+placeholder="متن سؤال"
+></textarea>
+
+
+<div class="grid">
+
+<div>
+
+<label>
+گزینه A
+</label>
+
+<input id="optionA">
+
+</div>
+
+
+<div>
+
+<label>
+گزینه B
+</label>
+
+<input id="optionB">
+
+</div>
+
+
+<div>
+
+<label>
+گزینه C
+</label>
+
+<input id="optionC">
+
+</div>
+
+
+<div>
+
+<label>
+گزینه D
+</label>
+
+<input id="optionD">
+
+</div>
+
+</div>
+
+
+<label>
+پاسخ صحیح
+</label>
+
+<select id="correctAnswer">
+
+<option value="a">
+گزینه A
+</option>
+
+<option value="b">
+گزینه B
+</option>
+
+<option value="c">
+گزینه C
+</option>
+
+<option value="d">
+گزینه D
+</option>
+
+</select>
+
+
+<button
+id="addQuestionButton"
+class="green"
+>
++ افزودن سؤال
+</button>
+
+
+<div id="questionList"></div>
+
+</div>
+
+
+<!-- نتایج -->
+
+<div class="card">
+
+<h2>
+نتایج کاربران
+</h2>
+
+<div id="resultList">
+
+<p class="muted">
+در حال بارگذاری نتایج...
+</p>
+
+</div>
+
+</div>
+
+</main>
+
+</div>
+
+
+<script>
+
+/* اتصال Supabase */
+
+const SUPABASE_URL =
+"https://aegvbwjvhoxloxefsjgf.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_Qg_pQU01zFg7lqB2Cx7f7A_OG73P8F7";
+
+let db = null;
+let exams = [];
+
+
+/* انتخاب عنصر */
+
+const $ = id =>
+document.getElementById(id);
+
+
+/* بارگذاری Supabase */
+
+function loadSupabase(){
+
+    return new Promise((resolve,reject)=>{
+
+        if(window.supabase){
+
+            db =
+            window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_KEY
+            );
+
+            resolve();
+            return;
+        }
+
+
+        const script =
+        document.createElement("script");
+
+        script.src =
+        "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2";
+
+
+        script.onload = ()=>{
+
+            db =
+            window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_KEY
+            );
+
+            resolve();
+
+        };
+
+
+        script.onerror = ()=>{
+
+            reject(
+                new Error(
+                    "اتصال Supabase برقرار نشد."
+                )
+            );
+
+        };
+
+
+        document.head.appendChild(script);
+
+    });
+
+}
+
+
+/* ورود */
+
+async function login(){
+
+    $("loginMessage").textContent =
+    "در حال ورود...";
+
+
+    try{
+
+        await loadSupabase();
+
+    }
+
+    catch(error){
+
+        $("loginMessage").textContent =
+        error.message;
+
+        return;
+
+    }
+
+
+    const email =
+    $("email").value.trim();
+
+
+    const password =
+    $("password").value;
+
+
+    if(!email || !password){
+
+        $("loginMessage").textContent =
+        "ایمیل و رمز عبور را وارد کنید.";
+
+        return;
+
+    }
+
+
+    const result =
+    await db.auth.signInWithPassword({
+
+        email:email,
+
+        password:password
+
+    });
+
+
+    if(result.error){
+
+        $("loginMessage").textContent =
+        result.error.message;
+
+        return;
+
+    }
+
+
+    openPanel();
+
+}
+
+
+/* باز کردن پنل */
+
+async function openPanel(){
+
+    $("loginPage").style.display =
+    "none";
+
+    $("panel").style.display =
+    "block";
+
+    await loadDashboard();
+
+}
+
+
+/* داشبورد */
+
+async function loadDashboard(){
+
+    const result =
+    await db
+    .from("exams")
+    .select("*")
+    .order(
+        "created_at",
+        {
+            ascending:false
+        }
+    );
+
+
+    if(result.error){
+
+        alert(
+            result.error.message
+        );
+
+        return;
+
+    }
+
+
+    exams =
+    result.data || [];
+
+
+    $("examCount").textContent =
+    exams.length;
+
+
+    const questions =
+    await db
+    .from("questions")
+    .select(
+        "id",
+        {
+            count:"exact",
+            head:true
+        }
+    );
+
+
+    $("questionCount").textContent =
+    questions.count || 0;
+
+
+    const results =
+    await db
+    .from("results")
+    .select(
+        "id",
+        {
+            count:"exact",
+            head:true
+        }
+    );
+
+
+    $("resultCount").textContent =
+    results.count || 0;
+
+
+    renderExams();
+
+    updateExamSelect();
+
+    await loadResults();
+
+}
+
+
+/* آزمون‌ها */
+
+function renderExams(){
+
+    if(!exams.length){
+
+        $("examList").innerHTML =
+        '<p class="muted">هنوز آزمونی وجود ندارد.</p>';
+
+        return;
+
+    }
+
+
+    $("examList").innerHTML =
+    exams.map(exam=>`
+
+        <div class="item">
+
+            <div>
+
+                <strong>
+                    ${escapeHTML(exam.title)}
+                </strong>
+
+                <div class="muted">
+                    ${escapeHTML(
+                        exam.description || ""
+                    )}
+                </div>
+
+            </div>
+
+
+            <button
+                class="red"
+                onclick="deleteExam('${exam.id}')"
+            >
+                حذف
+            </button>
+
+        </div>
+
+    `).join("");
+
+}
+
+
+/* انتخاب آزمون */
+
+function updateExamSelect(){
+
+    if(!exams.length){
+
+        $("examSelect").innerHTML =
+        "<option>آزمونی وجود ندارد</option>";
+
+        return;
+
+    }
+
+
+    $("examSelect").innerHTML =
+    exams.map(exam=>`
+
+        <option value="${exam.id}">
+            ${escapeHTML(exam.title)}
+        </option>
+
+    `).join("");
+
+}
+
+
+/* افزودن آزمون */
+
+async function addExam(){
+
+    const title =
+    $("examTitle").value.trim();
+
+
+    if(!title){
+
+        alert(
+            "عنوان آزمون را وارد کنید."
+        );
+
+        return;
+
+    }
+
+
+    const result =
+    await db
+    .from("exams")
+    .insert({
+
+        title:title,
+
+        description:
+        $("examDescription").value.trim(),
+
+        active:true
+
+    });
+
+
+    if(result.error){
+
+        alert(
+            result.error.message
+        );
+
+        return;
+
+    }
+
+
+    $("examTitle").value="";
+    $("examDescription").value="";
+
+
+    await loadDashboard();
+
+}
+
+
+/* حذف آزمون */
+
+async function deleteExam(id){
+
+    if(
+        !confirm(
+            "این آزمون حذف شود؟"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    await db
+    .from("questions")
+    .delete()
+    .eq(
+        "exam_id",
+        id
+    );
+
+
+    const result =
+    await db
+    .from("exams")
+    .delete()
+    .eq(
+        "id",
+        id
+    );
+
+
+    if(result.error){
+
+        alert(
+            result.error.message
+        );
+
+        return;
+
+    }
+
+
+    await loadDashboard();
+
+}
+
+
+/* سؤال‌ها */
+
+async function loadQuestions(id){
+
+    const result =
+    await db
+    .from("questions")
+    .select("*")
+    .eq(
+        "exam_id",
+        id
+    );
+
+
+    if(result.error){
+
+        $("questionList").innerHTML =
+        `<p class="muted">
+            ${escapeHTML(
+                result.error.message
+            )}
+        </p>`;
+
+        return;
+
+    }
+
+
+    const questions =
+    result.data || [];
+
+
+    if(!questions.length){
+
+        $("questionList").innerHTML =
+        '<p class="muted">هنوز سؤالی برای این آزمون ثبت نشده.</p>';
+
+        return;
+
+    }
+
+
+    $("questionList").innerHTML =
+    questions.map(
+        (question,index)=>`
+
+        <div class="item">
+
+            <div>
+
+                <strong>
+                    ${index+1}.
+                    ${escapeHTML(
+                        question.question_text
+                    )}
+                </strong>
+
+            </div>
+
+
+            <button
+                class="red"
+                onclick="deleteQuestion('${question.id}')"
+            >
+                حذف
+            </button>
+
+        </div>
+
+        `
+    ).join("");
+
+}
+
+
+/* افزودن سؤال */
+
+async function addQuestion(){
+
+    const examId =
+    $("examSelect").value;
+
+
+    const text =
+    $("questionText")
+    .value
+    .trim();
+
+
+    if(!examId || !text){
+
+        alert(
+            "آزمون و متن سؤال را وارد کنید."
+        );
+
+        return;
+
+    }
+
+
+    const result =
+    await db
+    .from("questions")
+    .insert({
+
+        exam_id:examId,
+
+        question_text:text,
+
+        option_a:
+        $("optionA").value.trim(),
+
+        option_b:
+        $("optionB").value.trim(),
+
+        option_c:
+        $("optionC").value.trim(),
+
+        option_d:
+        $("optionD").value.trim(),
+
+        correct_option:
+        $("correctAnswer").value,
+
+        sort_order:1
+
+    });
+
+
+    if(result.error){
+
+        alert(
+            result.error.message
+        );
+
+        return;
+
+    }
+
+
+    $("questionText").value="";
+    $("optionA").value="";
+    $("optionB").value="";
+    $("optionC").value="";
+    $("optionD").value="";
+
+
+    await loadDashboard();
+
+}
+
+
+/* حذف سؤال */
+
+async function deleteQuestion(id){
+
+    if(
+        !confirm(
+            "این سؤال حذف شود؟"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    const result =
+    await db
+    .from("questions")
+    .delete()
+    .eq(
+        "id",
+        id
+    );
+
+
+    if(result.error){
+
+        alert(
+            result.error.message
+        );
+
+        return;
+
+    }
+
+
+    await loadDashboard();
+
+}
+
+
+/* نتایج */
+
+async function loadResults(){
+
+    const result =
+    await db
+    .from("results")
+    .select("*")
+    .order(
+        "created_at",
+        {
+            ascending:false
+        }
+    )
+    .limit(50);
+
+
+    if(result.error){
+
+        $("resultList").innerHTML =
+        `<p class="muted">
+            ${escapeHTML(
+                result.error.message
+            )}
+        </p>`;
+
+        return;
+
+    }
+
+
+    const results =
+    result.data || [];
+
+
+    if(!results.length){
+
+        $("resultList").innerHTML =
+        '<p class="muted">هنوز نتیجه‌ای ثبت نشده.</p>';
+
+        return;
+
+    }
+
+
+    $("resultList").innerHTML =
+    results.map(result=>`
+
+        <div class="item">
+
+            <span>
+                ${escapeHTML(
+                    result.participant_name ||
+                    "کاربر"
+                )}
+            </span>
+
+            <strong>
+                ${escapeHTML(
+                    result.score ?? ""
+                )}
+            </strong>
+
+        </div>
+
+    `).join("");
+
+}
+
+
+/* خروج */
+
+async function logout(){
+
+    await db.auth.signOut();
+
+    location.reload();
+
+}
+
+
+/* جلوگیری از HTML */
+
+function escapeHTML(value){
+
+    return String(
+        value ?? ""
+    ).replace(
+        /[&<>"']/g,
+        character=>({
+
+            "&":"&amp;",
+            "<":"&lt;",
+            ">":"&gt;",
+            '"':"&quot;",
+            "'":"&#039;"
+
+        }[character])
+    );
+
+}
+
+
+/* دکمه‌ها */
+
+$("loginButton").onclick =
+login;
+
+
+$("addExamButton").onclick =
+addExam;
+
+
+$("addQuestionButton").onclick =
+addQuestion;
+
+
+$("logoutButton").onclick =
+logout;
+
+
+$("examSelect").onchange =
+event =>
+loadQuestions(
+    event.target.value
+);
+
+
+/* شروع */
+
+(async function(){
+
+    try{
+
+        await loadSupabase();
+
+        const session =
+        await db
+        .auth
+        .getSession();
+
+
+        if(session.data.session){
+
+            openPanel();
+
+        }
+
+    }
+
+    catch(error){
+
+        $("loginMessage").textContent =
+        error.message;
+
+    }
+
+})();
+
+</script>
+
+</body>
+  </html>
